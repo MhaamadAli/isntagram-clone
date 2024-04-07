@@ -31,7 +31,7 @@ class PostController extends Controller
         return response()->json($post, 201);
     }
 
-    public function getAllPosts(Request $request)
+    public function getAllPosts()
     {
         $posts = Post::with('user')->get();
         return response()->json($posts, 200);
