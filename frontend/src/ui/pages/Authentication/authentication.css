@@ -1,5 +1,19 @@
 .form-box {
     width: 350px;
-    height: 700px;
+    height: 350px;
     background-color: #ffffff;
+}
+
+.small-box {
+    width: 350px;
+    height: 100px;
+    background-color: #ffffff;
+}
+
+.main-logo {
+    width: 200px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
 }

@@ -1,8 +1,8 @@
 import './mainbutton.css'
 
-const MainButton = ({text="click", width="w-large"}) => {
+const MainButton = ({text="click"}) => {
   return (
-    <button className={`main-btn ${width}`}>
+    <button className={`main-btn`}>
       {text}
     </button>
   )
