@@ -1,8 +1,10 @@
 import './mainbutton.css'
 
-const MainButton = () => {
+const MainButton = ({text="click", width="w-large"}) => {
   return (
-    <div>MainButton</div>
+    <button className={`main-btn ${width}`}>
+      {text}
+    </button>
   )
 }
 export default MainButton
