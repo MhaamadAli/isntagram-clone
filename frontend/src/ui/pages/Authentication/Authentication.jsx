@@ -16,7 +16,11 @@ const Authentication = () => {
             setCredentials={setCredentials}
           />
         ) : (
-          <Signup switchHandler={switcher} />
+          <Signup
+            switchHandler={switcher}
+            credentials={credentials}
+            setCredentials={setCredentials}
+          />
         )}
       </div>
     </div>
