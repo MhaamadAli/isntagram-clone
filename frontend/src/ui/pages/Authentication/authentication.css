@@ -17,3 +17,11 @@
     margin-right: auto;
     margin-bottom: 30px;
 }
+
+.main-input {
+    height: 40px;
+    width: 250px;
+    margin: 3px;
+    border-radius: 5px;
+    padding-left: 5px;
+}

@@ -1,5 +1,5 @@
 import './maininput.css'
-const MainInput = ({ placeholder = "input", type = "text" }) => {
+const MainInput = ({ placeholder = "input", type = "text", }) => {
   return (
     <input
       className={`main-input`}
