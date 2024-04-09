@@ -1,0 +1,6 @@
+.side-bar {
+    height: 100vh;
+    width: 18vw;
+    border-right: 1px solid #e1e4e7;
+    gap: 20px;
+}

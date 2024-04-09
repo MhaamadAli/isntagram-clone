@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Playpen+Sans:wght@100..800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Instagram Sans Font';
+    font-family: "Playpen Sans", cursive;
+
 }
 
 input {
@@ -130,4 +133,21 @@ input {
 .rounded-top {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+
+.main-logo {
+    width: 200px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+.main-logo2 {
+    width: 120px;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
 }
