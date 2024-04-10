@@ -1,23 +1,33 @@
+import default_picture from '../../../../assets/profile.png'
 import "./styles.css";
-import likeLogo from '../../../../assets/like.png'
-import likeLogo from '../../../../assets/like.png'
 
-const Post = ({username,timestamp,postImage,likes,caption,comments}) => {
+const Post = ({ image_url, caption, user, created_at,comments=0, likes=6 }) => {
+    const formatDate = (created_at) => {
+        const postDate = new Date(created_at);
+        const today = new Date();
+        const daysDifference = Math.floor((today - postDate) / (1000 * 3600 * 24));
+    
+        return (
+            daysDifference === 0 ? 'Today' :
+            daysDifference === 1 ? 'Yesterday' :
+            `${daysDifference} days ago`
+        );
+    };
   return (
-    <div className="post">
-      <div className="post-header">
-        <img alt="userprofilImage" />
-        {username} • <span>{timestamp}</span>
+      <div className="post">
+          <div className="post-header">
+              <img src={default_picture} alt="User Profile" className="user-profile" />
+              <span className="username">{user.username}</span>
+              <span className="timestamp">{formatDate(created_at)}</span>
+          </div>
+          <img src={image_url} alt="Post Image" className="post-image" />
+          <div className="post-buttons">
+              <button className="like-button">{likes} Likes</button>
+              <button className="comment-button">{comments} Comments</button>
+          </div>
+          <p className="caption">{caption}</p>
       </div>
-      <div className="post-image">
-        <img src={postImage} alt="Post Image" />
-      </div>
-      <div className="post-footer">
-      <div className="post-footer-icons">
-
-      </div>
-      </div>
-    </div>
   );
 };
+
 export default Post;
