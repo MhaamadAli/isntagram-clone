@@ -1,4 +1,5 @@
 .side-bar {
+    position: fixed;
     height: 100vh;
     width: 18vw;
     border-right: 1px solid #e1e4e7;

@@ -15,8 +15,7 @@ const Login = ({ switchHandler, credentials, setCredentials }) => {
     });
 
     if (res.data.status === "success") {
-      localStorage.setItem("token", res.data.token);
-
+      localStorage.setItem("token", res.data.authorization.token);
       navigate("/home");
     }
   };

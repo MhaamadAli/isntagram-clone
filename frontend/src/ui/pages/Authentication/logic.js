@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useAuthenticationLogic = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
