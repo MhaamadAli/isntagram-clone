@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Post;
 
-class UserController extends Controller
+class userController extends Controller
 {
     public function __construct()
     {
@@ -40,7 +41,23 @@ class UserController extends Controller
             ]);
 
     }
-
+    public function profile()
+    {
+        $user = Auth::user();
+        $nbOfFollower = $user->followers()->count();
+        $nbOfFollowing = $user->followings()->count();
+        $posts = Post::where('user_id', $user->id)->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'user' => $user,
+                'posts' => $posts,
+                'nbOfFollower' => $nbOfFollower,
+                'nbOfFollowing' => $nbOfFollowing
+            ]
+        ]);
+        return response()->json($user, 200);
+    }
     public function register(Request $request){
         $request->validate([
             'username' => 'required|string|max:255',

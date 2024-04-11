@@ -6,6 +6,8 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -15,28 +17,43 @@ class PostController extends Controller
     }
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'caption' => 'required|string|max:255',
-            'image' => 'required|string',
+        $data = $request->validate([
+            'caption' => ['required', 'string', 'max:300'],
+            'post_image' => ['required'],
         ]);
-    
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-    
-        $post = new Post;
-        $post->caption = $request->caption;
-        $post->user_id = Auth::id();
 
-        $imageData = base64_decode(explode(',', $request->image)[1]);
-        $fileName = uniqid() . '.jpg';
-        $path = storage_path('app/public/images') . '/' . $fileName;
-        file_put_contents($path, $imageData);
-    
-        $post->image = $fileName;
+        $imageData = $data['post_image'];
+
+        if (preg_match('/^data:(image\/[a-z]+);base64,/', $imageData, $matches)) {
+            $mimeType = $matches[1];
+
+            $imageData = str_replace($matches[0], '', $imageData);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Invalid image data'], 400);
+        }
+
+        $imageData = str_replace(' ', '+', $imageData);
+
+        $imageData = base64_decode($imageData);
+
+        $extensions = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/gif' => 'gif',
+        ];
+
+        $fileExtension = $extensions[$mimeType] ?? 'jpg';
+
+        $imageName = Str::random(32) . '.' . $fileExtension;
+
+        Storage::disk('public')->put($imageName, $imageData);
+
+        $post = new Post();
+        $post->caption = $data['caption'];
+        $post->image = $imageName;
+        $post->user_id = auth()->id();
         $post->save();
-    
-        return response()->json($post, 201);
+        return response()->json(['status' => 'success', 'message' => 'Post added successfully'], 201);
     }
 
     public function getAllPosts()
