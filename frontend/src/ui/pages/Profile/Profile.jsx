@@ -11,10 +11,10 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const res = await sendRequest(requestMethods.GET, "profile");
-      console.log(res.data)
-      setProfileData(res.data);
-      setNbOffollower(res.data.nbOfFollower)
-      setNbOffollowing(res.data.nbOffollowing)
+      console.log(res.data.data)
+      setProfileData(res.data.data.user);
+      setNbOffollower(res.data.data.nbOfFollower)
+      setNbOffollowing(res.data.data.nbOffollowing)
     } catch (error) {
       console.error("Error fetching profile data:", error);
     }

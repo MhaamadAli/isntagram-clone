@@ -1,12 +1,18 @@
-import React from 'react';
-import './styles.css'
-import DefaultImage from '../../../assets/post1.jpg'
+import React from "react";
+import "./styles.css";
+import DefaultImage from "../../../assets/post1.jpg";
 
-const UserProfileInfo = ({ profileData,nbofFollwers ,nbofFollowing}) => {
-
+const UserProfileInfo = ({ profileData, nbofFollwers, nbofFollowing }) => {
   return (
     <div className="user-profile-info">
-      <img src={DefaultImage} alt="Profile" />
+      {profileData?.profile_picture ? (
+        <img
+          srcSet={`http://127.0.0.1:8000/storage/${profileData?.profile_picture}`}
+          alt=""
+        />
+      ) : (
+        <img srcSet={DefaultImage} alt="Default Profile" />
+      )}
       <div className="user-info">
         <h3>{profileData?.username}</h3>
         <p>
