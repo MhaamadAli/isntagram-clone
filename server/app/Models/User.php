@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,8 +41,35 @@ class User extends Authenticatable implements JWTSubject
 
     public function followings()
     {
-        return $this-> belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+
+    public function posts()
+    {
+        return $this->belongsToMany(User::class, 'posts');
+    }
+
+    public function getFollowersCount()
+    {
+        return $this->followers()->count();
+    }
+
+    public function getFollowingsCount()
+    {
+        return $this->followings()->count();
+    }
+
+    public function getPostsCount()
+    {
+        return $this->posts()->count();
+    }
+
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -49,5 +78,4 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
 }
