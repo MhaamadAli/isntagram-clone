@@ -1,7 +1,7 @@
 import default_picture from '../../../../assets/profile.png'
 import "./styles.css";
 
-const Post = ({ image_url, caption, user, created_at,comments=0, likes=6 }) => {
+const Post = ({ image, caption, user, created_at,comments=0, likes=6 }) => {
     const formatDate = (created_at) => {
         const postDate = new Date(created_at);
         const today = new Date();
@@ -13,6 +13,7 @@ const Post = ({ image_url, caption, user, created_at,comments=0, likes=6 }) => {
             `${daysDifference} days ago`
         );
     };
+    console.log(image)
   return (
       <div className="post">
           <div className="post-header">
@@ -20,7 +21,7 @@ const Post = ({ image_url, caption, user, created_at,comments=0, likes=6 }) => {
               <span className="username">{user.username}</span>
               <span className="timestamp">{formatDate(created_at)}</span>
           </div>
-          <img src={image_url} alt="Post Image" className="post-image" />
+          <img src={image} alt="Post Image" className="post-image" />
           <div className="post-buttons">
               <button className="like-button">{likes} Likes</button>
               <button className="comment-button">{comments} Comments</button>
