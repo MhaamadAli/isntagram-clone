@@ -21,7 +21,7 @@ const Post = ({ image, caption, user, created_at,comments=0, likes=6 }) => {
               <span className="username">{user.username}</span>
               <span className="timestamp">{formatDate(created_at)}</span>
           </div>
-          <img src={image} alt="Post Image" className="post-image" />
+          <img src={`http://127.0.0.1:8000/storage/${image}`} alt="Post Image" className="post-image" />
           <div className="post-buttons">
               <button className="like-button">{likes} Likes</button>
               <button className="comment-button">{comments} Comments</button>

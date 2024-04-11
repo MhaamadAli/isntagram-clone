@@ -36,42 +36,47 @@ const Home = () => {
     setShowPopup(false);
   };
 
-  const handleChange = (event) => {
-    const { name, value, files } = event.target;
-    if (name === 'caption') {
-      setPostCredentials((prevCredentials) => ({
-        ...prevCredentials,
-        caption: value,
-      }));
-    } else if (name === 'postImage') {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setPostCredentials((prevCredentials) => ({
-          ...prevCredentials,
-          image: e.target.result,
-        }));
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setPostCredentials({
+      ...postCredentials,
+      post_image: base64,
+    });
+  };
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
       };
-      reader.readAsDataURL(files[0]);
-    }
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   };
 
   const createPostAction = async (e) => {
     e.preventDefault();
 
-    if (!postCredentials.image) {
+    if (!postCredentials.post_image) {
       console.error('Please select an image');
       return;
     }
 
     const postData = {
       caption: postCredentials.caption,
-      image: postCredentials.image, 
+      post_image: postCredentials.post_image, 
     };
 
     try {
       const response = sendRequest(requestMethods.POST, '/create', postData)
       console.log('Post created successfully:', response.data);
-      setPostCredentials({ caption: '', image: '' });
+      setPostCredentials({ caption: '', post_image: '' });
+      fetchPosts();
     } catch (error) {
       console.error('Error creating post:', error);
     }
@@ -107,12 +112,16 @@ const Home = () => {
               id="caption"
               name="caption"
               value={postCredentials.caption}
-              onChange={handleChange}
+              onChange={(e)=> {setPostCredentials({
+                ...postCredentials,
+                caption: e.target.value
+
+              })}}
             />
           </div>
           <div>
             <label htmlFor="postImage">Image</label>
-            <input type="file" name="postImage" id="postImage" onChange={handleChange} />
+            <input type="file" name="postImage" id="postImage" onChange={(e)=> uploadImage(e)} multiple />
           </div>
         </PopUp>
       )}

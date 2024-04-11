@@ -1,0 +1,42 @@
+.profile-page {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-profile-info {
+    display: flex; 
+
+    margin: auto;
+    height: 500px;
+    width: 800px;
+    margin-bottom: 20px;
+    padding: 20px;
+background-color: antiquewhite;
+  }
+  
+  .user-profile-info img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover; 
+    margin-right: 20px; 
+  }
+  
+  .user-info {
+    margin-top: 50px;
+    flex: 1;
+  }
+  
+  .user-info h3 {
+    margin-bottom: 5px;
+    font-size: 18px; 
+  }
+  
+  .user-info p {
+    margin-bottom: 5px;
+    font-size: 14px; 
+  }
+  
+  .user-info p strong {
+    font-weight: bold; 
+  }
