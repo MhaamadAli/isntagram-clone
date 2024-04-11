@@ -10,7 +10,7 @@ import ProfileLogo from '../../../../assets/profile.png'
 import NavCard from '../NavCard/NavCard'
 import './styles.css'
 
-const SideBar = () => {
+const SideBar = ({openPopup}) => {
   return (
     <div className='side-bar flex flex-column'>
         <img src={Logo} alt="logo" className="main-logo2" />
@@ -20,7 +20,7 @@ const SideBar = () => {
         <NavCard icon={ReelsLogo} text={"Reels"}/>
         <NavCard icon={MessagesLogo} text={"Messages"}/>
         <NavCard icon={NotificationsLogo} text={"Notifications"}/>
-        <NavCard icon={CreateLogo} text={"Create"}/>
+        <NavCard icon={CreateLogo} text={"Create"} onClick={openPopup}/>
         <NavCard icon={ProfileLogo} text={"Profile"}/>
     </div>
   )
