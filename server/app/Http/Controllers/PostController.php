@@ -13,21 +13,29 @@ class PostController extends Controller
     {
         $this->middleware('auth:api');
     }
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'caption' => 'required|string|max:255',
-            'image_url' => 'required|string|url',
+            'image' => 'required|string',
         ]);
+    
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+    
+        $post = new Post;
+        $post->caption = $request->caption;
+        $post->user_id = Auth::id();
 
-        $post = Post::create([
-            'user_id'=> Auth::id(),
-            'caption'=> $request-> caption,
-            'image_url'=> $request-> image_url,
-        ]);
-
+        $imageData = base64_decode(explode(',', $request->image)[1]);
+        $fileName = uniqid() . '.jpg';
+        $path = storage_path('app/public/images') . '/' . $fileName;
+        file_put_contents($path, $imageData);
+    
+        $post->image = $fileName;
+        $post->save();
+    
         return response()->json($post, 201);
     }
 
